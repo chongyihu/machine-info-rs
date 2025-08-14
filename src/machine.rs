@@ -112,12 +112,8 @@ impl Machine {
         
         // Getting the model
         let model_path = Path::new("/sys/firmware/devicetree/base/model");
-        let model = if model_path.exists() {
-            Some(std::fs::read_to_string(model_path).unwrap())
-        } else {
-            None
-        };
-        
+        let model = std::fs::read_to_string(model_path).ok();
+
         let vaapi = Path::new("/dev/dri/renderD128").exists();
 
         SystemInfo {
